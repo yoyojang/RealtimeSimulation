@@ -6,4 +6,5 @@ class DynamicSpeedArithmetic:
 
     def main(self):
         speed = self.simutime / self.realtime
+        speed = round(speed, 1)
         return speed

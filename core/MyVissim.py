@@ -92,7 +92,7 @@ class MyVissim:
         with open(volume_file, encoding='utf8') as f:
             for i in f:
                 point, volume = i.replace(' ', '').strip().split(',')
-                print(point,volume)
+                # print(point,volume)
                 MyCOM.SetVolume(self.vissim, point,volume)
 
     def route_update(self,routerate_file):
@@ -100,51 +100,23 @@ class MyVissim:
         with open(routerate_file, encoding='utf8') as f:
             for i in f:
                 p,q,rate = i.replace(' ', '').strip().split(',')
-                print(p, q, rate)
+                # print(p, q, rate)
                 MyCOM.SetRoute(self.vissim,p,q,rate)
 
     def GetAllCar(self):
         '''获取运行中的所有车辆信息'''
-        info = []
-        #车辆信息更新
-        # vehicle_type = all_car_info
-        # desired_speed = 53  # unit according to the user setting in Vissim [km/h or mph]
-        # link = 1
-        # lane = 1
-        # xcoordinate = 15
-        VehType
-        Speed
-
-        Lane
-        Pos
-
-        all_car_info = {
-            'RoutDecType': None,
-            'RoutDecNo': None,
-            'VehType': None,
-            'No': None,
-        }
-        for i in all_car_info:
-            info.append(i)
-        info = tuple(info)
+        info = ('VehType', 'Speed', 'Lane', 'Pos')
         lst = MyCOM.GetMultiCar(self.vissim, info)
-        for i in range(len(info)):
-            all_car_info[i] = lst[i]
-        return all_car_info
+        return lst
 
     def InAllCar(self,all_car_info):
         '''运行后立刻输入车辆'''
-        # # Putting a new vehicle to the network:
-        vehicle_type = all_car_info
-        desired_speed = 53  # unit according to the user setting in Vissim [km/h or mph]
-        link = 1
-        lane = 1
-        xcoordinate = 15  # unit according to the user setting in Vissim [m or ft]
-        # interaction = True  # optional boolean
-        # new_Vehicle = self.vissim.Net.Vehicles.AddVehicleAtLinkPosition(vehicle_type, link, lane, xcoordinate, desired_speed,
-        #                                                            interaction)
         for state in all_car_info:
-
+            # ('100', 31.367223589909905, '26-1', 37.4414135474223)
+            vehicle_type = int(state[0])
+            desired_speed = state[1]  # unit according to the user setting in Vissim [km/h or mph]
+            link, lane = [int(i) for i in state[2].split('-')]
+            xcoordinate = state[3]
             MyCOM.SetNewCar(self.vissim, vehicle_type, link, lane, xcoordinate, desired_speed)
 
     def SetRunStartParam(self,firstbreaktime, endtime):

@@ -26,17 +26,18 @@ def main():
     run_time_list, all_signal_list = TimeSeqArith(signal_program, start_time).main()
     # print(start_time, run_time_list, all_signal_list)
 
-    speed = 1
+    speed = 0
     all_car = None
 
-    for i in run_time_list:
+    for i in range(len(run_time_list)):
         # 信号控制匹配
         endtime = run_time_list[i]
         mulriple = endtime // interval_time
         remainder = endtime % interval_time
         for k, v in intersection_info.items():
             signal_num = v[0]
-            myvissim.signal_handle(signal_num, all_signal_list[i])
+            for each in all_signal_list:
+                myvissim.signal_handle(signal_num, each[i])
         # 仿真开始运行参数设置
         if i == 0:
             myvissim.SetRunStartParam(interval_time, endtime)
@@ -71,7 +72,7 @@ def main():
 
             if n % output == 0:
                 datetime = time.strftime('%Y-%m-%d %X')
-                evaluation = myvissim.GetEvaluation(i, datetime)
+                evaluation = myvissim.GetEvaluation(i+1, datetime)
                 evaluation.GetDatacollection()
                 evaluation.GettTravelTime()
                 evaluation.GetMovement()

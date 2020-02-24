@@ -1,15 +1,15 @@
-vissim_file_path = r'D:\Development\RealtimeSimulation\core\测试文档.docx'
+vissim_file_path = r'D:\Program\RealtimeSimulation\zsvissim\Road ziyun.inpx'
 
 vissim_version = r'vissim.vissim'
 
-volume_file = r'D:\Development\RealtimeSimulation\db\volume'
-routerate_file = r'D:\Development\RealtimeSimulation\db\route_rate'
-signal_program = r'D:\Development\RealtimeSimulation\db\offline_signal_program'
+volume_file = r'D:\Program\RealtimeSimulation\db\volume'
+routerate_file = r'D:\Program\RealtimeSimulation\db\route_rate'
+signal_program = r'D:\Program\RealtimeSimulation\db\offline_signal_program'
 
 # 存储数据库配置
-datacollection_file = r'D:\Development\RealtimeSimulation\db\evaluation_datacollection'
-traveltime_file = r'D:\Development\RealtimeSimulation\db\evaluation_traveltime'
-movement_file = r'D:\Development\RealtimeSimulation\db\evaluation_movement'
+datacollection_file = r'D:\Program\RealtimeSimulation\db\evaluation_datacollection'
+traveltime_file = r'D:\Program\RealtimeSimulation\db\evaluation_traveltime'
+movement_file = r'D:\Program\RealtimeSimulation\db\evaluation_movement'
 
 update_interval_time = 5*60  # 数据更新间隔时间， seconds
 output_multiple = 1 # 评价输出间隔时间，是更新时间的整数倍

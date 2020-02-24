@@ -9,6 +9,8 @@ from conf.config import *
 3, 1, 2, 2, 3, 3, 4, 4
 3, 1, 1, 2, 3, 4, 4, 5
 '''
+
+
 class TimeSeqArith:
 
     def __init__(self, file, now_time):
