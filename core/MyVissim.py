@@ -79,9 +79,10 @@ class MyVissim:
     def __init__(self, version, filename, flag_read_additionally=False):
         '''创建vissim对象并运行打开文件'''
         self.vissim = com.Dispatch(version)
+        # self.vissim = com.gencache.EnsureDispatch(version)
         
         # self.vissim = self.vissim.Documents.Open(FileName = filename)
-        self.vissim.LoadNet(filename, flag_read_additionally) #vissim软件用
+        self.vissim.LoadNet(filename, flag_read_additionally)   # vissim软件用
 
     def signal_handle(self,SC_number, new_signal_program_number):
         '''信号方案更新'''
@@ -126,6 +127,7 @@ class MyVissim:
 
     def RunContinuous(self, breaktime,speed):
         '''继续运行，并设置下一断点及速度'''
+        speed = 0
         MyCOM.SetBreakTime(self.vissim, breaktime)
         MyCOM.SetRunSpeed(self.vissim,speed)
         MyCOM.RunContinuous(self.vissim)

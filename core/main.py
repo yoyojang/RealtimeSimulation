@@ -32,6 +32,7 @@ def main():
     for i in range(len(run_time_list)):
         # 信号控制匹配
         endtime = run_time_list[i]
+        print('总时长：', endtime)
         mulriple = endtime // interval_time
         remainder = endtime % interval_time
         for k, v in intersection_info.items():
@@ -60,15 +61,19 @@ def main():
 
             if n <= mulriple:
                 breaktime = n * interval_time
+                print(breaktime)
                 myvissim.RunContinuous(breaktime, speed)
             else:
                 flag = False
-                breaktime = remainder - 1
+                breaktime = endtime - 1
+                print('***', breaktime)
                 myvissim.RunContinuous(breaktime, speed)
                 '''获取所有车辆，继续运行1s'''
-                all_car = myvissim.GetAllCar()  # 参数要再确认
+                all_car = myvissim.GetAllCar()
+
                 # 继续
                 myvissim.vissim.Simulation.RunContinuous()
+                print(all_car)
 
             if n % output == 0:
                 datetime = time.strftime('%Y-%m-%d %X')
