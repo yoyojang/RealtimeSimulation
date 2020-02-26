@@ -9,6 +9,8 @@ from conf.config import *
 3, 1, 2, 2, 3, 3, 4, 4
 3, 1, 1, 2, 3, 4, 4, 5
 '''
+
+
 class TimeSeqArith:
 
     def __init__(self, file, now_time):
@@ -30,7 +32,7 @@ class TimeSeqArith:
         return label_time_list
 
     def getindex(self,nowtime,timelist):
-        '''根据当前时间判断所在时间序列的不大于它的最大时间位置,并获得与后点的差'''
+        '''根据当前时间判断所在时间序列的不大于它的最大时间位置,并获得与后点的差ddd'''
         # global i
         for i in range(len(timelist)):
             if nowtime < timelist[i]:
