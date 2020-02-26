@@ -61,6 +61,7 @@ class Evaluation:
             f.write('\n')
 
     def GettTravelTime(self):
+        print(self.att_traveltime)
         lst =  MyCOM.GetEvalTravelTime(self.obj, self.att_traveltime)
         Evaluation.StoreLocal(self, traveltime_file, lst)
 
@@ -71,6 +72,7 @@ class Evaluation:
 
 
     def GetDatacollection(self):
+        print(self.att_datacollection)
         lst = MyCOM.GetEvalDataCollection(self.obj, self.att_datacollection)
         Evaluation.StoreLocal(self, datacollection_file, lst)
 
@@ -94,7 +96,7 @@ class MyVissim:
             for i in f:
                 point, volume = i.replace(' ', '').strip().split(',')
                 # print(point,volume)
-                MyCOM.SetVolume(self.vissim, point,volume)
+                MyCOM.SetVolume(self.vissim, point, volume)
 
     def route_update(self,routerate_file):
         '''路径转向比例匹配'''
@@ -115,7 +117,15 @@ class MyVissim:
         for state in all_car_info:
             # ('100', 31.367223589909905, '26-1', 37.4414135474223)
             vehicle_type = int(state[0])
-            desired_speed = state[1]  # unit according to the user setting in Vissim [km/h or mph]
+            if vehicle_type == 100:
+                desired_speed = 50
+            elif vehicle_type == 200:
+                desired_speed = 40
+            elif vehicle_type ==300:
+                desired_speed = 30
+            else:
+                desired_speed =30
+            # desired_speed = state[1]  # unit according to the user setting in Vissim [km/h or mph]
             link, lane = [int(i) for i in state[2].split('-')]
             xcoordinate = state[3]
             MyCOM.SetNewCar(self.vissim, vehicle_type, link, lane, xcoordinate, desired_speed)

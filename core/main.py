@@ -44,6 +44,7 @@ def main():
             myvissim.SetRunStartParam(interval_time, endtime)
         else:
             myvissim.SetRunStartParam(interval_time, endtime)
+            myvissim.RunContinuous(1, speed)
             '''放置上次仿真的所有车辆'''
             myvissim.InAllCar(all_car)  # 输入方法再确认
         n = 0
@@ -55,21 +56,36 @@ def main():
                 simutime = strtosecond(time.strftime("%X")) - start_time
                 realtime = n * interval_time
                 speed = DynamicSpeedArithmetic(realtime, simutime).main()
-
+            fetch_time = time.strftime("%Y-%m-%d %X")
             myvissim.volume_update(volume_file)
             myvissim.route_update(routerate_file)
 
-            if n <= mulriple:
-                breaktime = n * interval_time
-                print(breaktime)
-                myvissim.RunContinuous(breaktime, speed)
+            if remainder > 0:
+                if n <= mulriple:
+                    breaktime = n * interval_time
+                    print(breaktime)
+                    myvissim.RunContinuous(breaktime, speed)
+                else:
+                    flag = False
+                    breaktime = endtime - 1
+                    print('***', breaktime)
+                    myvissim.RunContinuous(breaktime, speed)
+                    '''获取所有车辆，继续运行1s'''
+                    lst = myvissim.GetAllCar()
+                    all_car = lst
             else:
-                flag = False
-                breaktime = endtime - 1
-                print('***', breaktime)
-                myvissim.RunContinuous(breaktime, speed)
-                '''获取所有车辆，继续运行1s'''
-                all_car = myvissim.GetAllCar()
+                if n < mulriple:
+                    breaktime = n * interval_time
+                    print(breaktime)
+                    myvissim.RunContinuous(breaktime, speed)
+                else:
+                    flag = False
+                    breaktime = endtime - 1
+                    print('***', breaktime)
+                    myvissim.RunContinuous(breaktime, speed)
+                    '''获取所有车辆，继续运行1s'''
+                    lst = myvissim.GetAllCar()
+                    all_car = lst
 
                 # 继续
                 myvissim.vissim.Simulation.RunContinuous()
@@ -77,7 +93,8 @@ def main():
 
             if n % output == 0:
                 datetime = time.strftime('%Y-%m-%d %X')
-                evaluation = myvissim.GetEvaluation(i+1, datetime)
+                evaluation = myvissim.GetEvaluation(n, datetime)
                 evaluation.GetDatacollection()
                 evaluation.GettTravelTime()
                 evaluation.GetMovement()
+

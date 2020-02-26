@@ -55,7 +55,7 @@ def SetRoute(obj, SVRD_number, SVR_number, new_relative_flow):
     obj.Net.VehicleRoutingDecisionsStatic.ItemByKey(SVRD_number).VehRoutSta.ItemByKey(SVR_number).SetAttValue(
         'RelFlow(1)', new_relative_flow)
 
-def SetNewCar(obj, vehicle_type, link, lane, xcoordinate, desired_speed, interaction = True):
+def SetNewCar(obj, vehicle_type, link, lane, xcoordinate, desired_speed, interaction = False):
     '''
     放置新车辆
     :param obj:
@@ -79,7 +79,8 @@ def SetEndTime(obj, endtime):
     obj.Simulation.SetAttValue('SimPeriod', endtime)
 
 def GetMultiCar(obj, info):
-    obj.Net.Vehicles.GetMultipleAttributes(info)
+    car_tpl = obj.Net.Vehicles.GetMultipleAttributes(info)
+    return car_tpl
 
 def GetEvalTravelTime(obj,att):
     # 车辆行程时间
