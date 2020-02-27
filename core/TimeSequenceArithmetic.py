@@ -32,7 +32,7 @@ class TimeSeqArith:
         return label_time_list
 
     def getindex(self,nowtime,timelist):
-        '''根据当前时间判断所在时间序列的不大于它的最大时间位置,并获得与后点的差'''
+        '''根据当前时间判断所在时间序列的不大于它的最大时间位置,并获得与后点的差ddd'''
         # global i
         for i in range(len(timelist)):
             if nowtime < timelist[i]:
