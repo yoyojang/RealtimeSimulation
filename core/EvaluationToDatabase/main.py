@@ -1,3 +1,6 @@
+#监听文件 实时输入数据库
+# 与主程序同时运行，并在主程序结束后结束
+
 import pymysql
 
 from conf.config import *
