@@ -92,11 +92,13 @@ class MyVissim:
 
     def volume_update(self, volume_file):
         '''流量更新'''
+        volumelst = []
         with open(volume_file, encoding='utf8') as f:
             for i in f:
-                point, volume = i.replace(' ', '').strip().split(',')
-                # print(point,volume)
-                MyCOM.SetVolume(self.vissim, point, volume)
+                p, v = i.replace(' ', '').strip().split(',')
+                volume = [int(p), float(v)]
+                volumelst.append(volume)
+                MyCOM.SetVolume(self.vissim, volumelst)
 
     def route_update(self,routerate_file):
         '''路径转向比例匹配'''

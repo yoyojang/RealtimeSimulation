@@ -33,7 +33,7 @@ def SetRunBreak(obj,break_time):
     obj.Simulation.SetAttValue('SimBreakAt', break_time)
 
 
-def SetVolume(obj, VI_number, new_volume):
+def SetVolume(obj, volumelst):
     '''
     设置流量
     :param obj:
@@ -41,7 +41,8 @@ def SetVolume(obj, VI_number, new_volume):
     :param new_volume: 流量
     :return:
     '''
-    obj.Net.VehicleInputs.ItemByKey(VI_number).SetAttValue('Volume(1)', new_volume)
+    # obj.Net.VehicleInputs.ItemByKey(VI_number).SetAttValue('Volume(1)', new_volume)
+    obj.Net.VehicleInputs.SetMultiAttValues('Volume(1)', volumelst)
 
 def SetRoute(obj, SVRD_number, SVR_number, new_relative_flow):
     '''
