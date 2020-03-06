@@ -13,12 +13,19 @@ def strtosecond(strtime):
     li = [int(i) for i in strtime.strip().split(':')]
     return li[0] * 60 * 60 + li[1] * 60 + li[2]
 
+def clearfile(filename):
+    with open(filename, 'w') as f:
+        f.truncate()
 
 def main():
+    # 清空评价文件
     # 加载模型
     # 设置间隔时间，仿真总时长
     # 获取信号控制方案划分时段序列（时间控制序列算法）
     # 交通信号控制匹配，vissimcom
+    clearfile(datacollection_file)
+    clearfile(movement_file)
+    clearfile(traveltime_file)
     myvissim = MyVissim(vissim_version, vissim_file_path)
     interval_time = update_interval_time
     output = output_multiple
@@ -26,7 +33,7 @@ def main():
     run_time_list, all_signal_list = TimeSeqArith(signal_program, start_time).main()
     # print(start_time, run_time_list, all_signal_list)
 
-    speed = 0
+    speed = 1
     all_car = None
 
     for i in range(len(run_time_list)):
@@ -73,6 +80,8 @@ def main():
                     '''获取所有车辆，继续运行1s'''
                     lst = myvissim.GetAllCar()
                     all_car = lst
+                    myvissim.vissim.Simulation.RunContinuous()
+                    print(all_car)
             else:
                 if n < mulriple:
                     breaktime = n * interval_time
@@ -86,10 +95,11 @@ def main():
                     '''获取所有车辆，继续运行1s'''
                     lst = myvissim.GetAllCar()
                     all_car = lst
+                    myvissim.vissim.Simulation.RunContinuous()
+                    print(all_car)
 
-                # 继续
-                myvissim.vissim.Simulation.RunContinuous()
-                print(all_car)
+            # 继续
+
 
             if n % output == 0:
                 datetime = time.strftime('%Y-%m-%d %X')
@@ -98,3 +108,7 @@ def main():
                 evaluation.GettTravelTime()
                 evaluation.GetMovement()
 
+    f_lst = [datacollection_file,movement_file,traveltime_file]
+    for i in f_lst:
+        with open(i,'a',encoding='utf-8') as f:
+            f.write('finish')

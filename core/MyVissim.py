@@ -104,7 +104,7 @@ class MyVissim:
         '''路径转向比例匹配'''
         with open(routerate_file, encoding='utf8') as f:
             for i in f:
-                p,q,rate = i.replace(' ', '').strip().split(',')
+                k,p,q,rate = i.replace(' ', '').strip().split(',')
                 # print(p, q, rate)
                 MyCOM.SetRoute(self.vissim,p,q,rate)
 
@@ -139,7 +139,7 @@ class MyVissim:
 
     def RunContinuous(self, breaktime,speed):
         '''继续运行，并设置下一断点及速度'''
-        speed = 0
+        # speed = 0
         MyCOM.SetBreakTime(self.vissim, breaktime)
         MyCOM.SetRunSpeed(self.vissim,speed)
         MyCOM.RunContinuous(self.vissim)
