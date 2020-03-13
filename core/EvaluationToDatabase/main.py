@@ -118,7 +118,7 @@ def main_movement(file,sql_edge,sql_node):
 #     p2 = Process(target=main, args=(traveltime_file,sql_trvtm,))
 #     p3 = Process(target=main_movement, args=(movement_file,sql_edge,sql_node,))
 #     p1.start()
-#     p2.start()
+#     p2.start)
 #     p3.start()
 #     p1.join()
 #     p2.join()
