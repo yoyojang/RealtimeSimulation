@@ -30,12 +30,13 @@ def WriteRealtimeFile(filename, content):
             f.write(i)
     print('finish')
 
-while 1:
-    hour = time.localtime(time.time()).tm_hour
-    if hour < 24:
-        WriteRealtimeFile(volume_file,ReadTargetFile(VolumeHistory,hour))
-        WriteRealtimeFile(routerate_file,ReadTargetFile(RateHistory,hour))
-        print(hour)
-        time.sleep(10)
-    else:
-        break
+def main():
+    while 1:
+        hour = time.localtime(time.time()).tm_hour
+        if hour < 24:
+            WriteRealtimeFile(volume_file,ReadTargetFile(VolumeHistory,hour))
+            WriteRealtimeFile(routerate_file,ReadTargetFile(RateHistory,hour))
+            print(hour)
+            time.sleep(10)
+        else:
+            break
